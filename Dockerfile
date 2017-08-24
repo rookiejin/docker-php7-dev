@@ -10,7 +10,9 @@
  ARG DEBIAN_FRONTEND=noninteractive
  RUN \
 	apt-get -y update && apt-get -y upgrade && \
-  	apt-get -o Dpkg::Options::=--force-confdef -y install supervisor curl netcat wget telnet vim gcc python3 python-software-properties software-properties-common nginx git \
+  	apt-get -o Dpkg::Options::=--force-confdef -y install supervisor locales curl netcat wget telnet vim gcc python3 python-software-properties software-properties-common nginx git \
+  	&& sudo locale-gen en_US.UTF-8 \
+  	&& export LANG=en_US.UTF-8 \
   	&& add-apt-repository -y ppa:ondrej/php \
   	&& apt-get update \
   	&& apt-get install php7.1-cli 
