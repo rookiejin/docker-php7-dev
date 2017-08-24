@@ -25,7 +25,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 	&& php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
 	&& php composer-setup.php  --filename=composer --install-dir=/usr/bin \
 	&& php -r "unlink('composer-setup.php');" \
-	&& chmod a+x /usr/bin/composer 
+	&& chmod a+x /usr/bin/composer \
 	&& composer config -g repo.packagist composer https://packagist.phpcomposer.com \
 # laravel 安装脚手架
 	&& composer global require "laravel/installer"
@@ -38,7 +38,7 @@ RUN wget https://npm.taobao.org/mirrors/node/v8.4.0/node-v8.4.0-linux-x64.tar.xz
 	&& ln -s /usr/local/node/bin/node /usr/local/bin/node \
 	&& ln -s /usr/local/node/bin/npm /usr/local/bin/npm \
 # 国内镜像 
-	&& npm install -g cnpm --registry=https://registry.npm.taobao.org
+	&& npm install -g cnpm --registry=https://registry.npm.taobao.org \
 	&& rm -rf ./node-v8.4.0-linux-x64.tar
 # mysql
 
