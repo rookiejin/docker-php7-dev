@@ -13,7 +13,7 @@
   	apt-get -o Dpkg::Options::=--force-confdef -y install supervisor locales curl netcat wget telnet vim gcc python3 python-software-properties software-properties-common nginx git \
   	&& locale-gen en_US.UTF-8 \
   	&& export LANG=en_US.UTF-8 \
-  	&& add-apt-repository -y ppa:ondrej/php \
+  	&& add-apt-repository ppa:ondrej/php -y  \
   	&& apt-get update \
-  	&& apt-get install php7.1-cli 
+  	&& apt-get install -y php7.1-cli 
   	 
