@@ -10,12 +10,12 @@
  ARG DEBIAN_FRONTEND=noninteractive
  RUN \
 	apt-get -y update && apt-get -y upgrade && \
-  	apt-get -o Dpkg::Options::=--force-confdef -y install supervisor locales curl netcat wget telnet vim gcc python3 python-software-properties software-properties-common nginx git openssl\
+  	apt-get -o Dpkg::Options::=--force-confdef -y install supervisor locales curl netcat wget telnet vim gcc python3 python-software-properties software-properties-common nginx git openssl expect \
   	&& locale-gen en_US.UTF-8 \
   	&& export LANG=en_US.UTF-8 \
   	&& add-apt-repository ppa:ondrej/php -y  \
   	&& apt-get update \
-  	&& apt-get install -y php7.1 php7.1-dev php7.1-fpm php7.1-cli php7.1-phpdbg php7.1-bcmath php7.1-bz2 php7.1-common php7.1-curl php7.1-gd \
+  	&& apt-get install -y php7.1 php7.1-dev php7.1-fpm php7.1-cli php7.1-mysql php7.1-phpdbg php7.1-bcmath php7.1-bz2 php7.1-common php7.1-curl php7.1-gd \
   	php7.1-json php7.1-mbstring php7.1-mcrypt php7.1-xml php-pear 
 # composer   	 
 RUN mkdir /build 
@@ -39,4 +39,15 @@ RUN wget https://npm.taobao.org/mirrors/node/v8.4.0/node-v8.4.0-linux-x64.tar.xz
 	&& ln -s /usr/local/node/bin/npm /usr/local/bin/npm \
 # 国内镜像 
 	&& npm install -g cnpm --registry=https://registry.npm.taobao.org
+	&& rm -rf ./node-v8.4.0-linux-x64.tar
+# mysql
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install mysql-server \
+	
+# start serivce 
+    && /etc/init.d/mysql start \
+    && /etc/init.d/nginx start 
+
+
+EXPOSE 80
+EXPOSE 3306
